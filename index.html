@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM Pós-venda | Multivisão Ótica</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Multivisão Ótica</p>
+      <h1>CRM de Acompanhamento Pós-venda</h1>
+      <p class="subtitle">Ciclo de 1 ano até renovação: D0, D7, D21, 3 meses, 6 meses e 1 ano.</p>
+    </div>
+    <div class="header-actions">
+      <button id="btnExport" class="btn ghost">Exportar dados</button>
+      <label class="btn ghost file-label">
+        Importar dados
+        <input id="importFile" type="file" accept="application/json" hidden />
+      </label>
+      <button id="btnReset" class="btn danger">Limpar CRM</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel form-panel">
+      <div class="panel-title">
+        <h2>Novo cliente / venda</h2>
+        <span>Cadastro operacional</span>
+      </div>
+
+      <form id="clientForm">
+        <div class="grid two">
+          <label>Nome do cliente
+            <input id="name" required placeholder="Ex.: Maria Silva" />
+          </label>
+          <label>WhatsApp
+            <input id="phone" required placeholder="Ex.: 81999999999" />
+          </label>
+        </div>
+
+        <div class="grid two">
+          <label>Data da venda
+            <input id="saleDate" type="date" required />
+          </label>
+          <label>Prazo de entrega informado
+            <input id="deliveryDate" type="date" />
+          </label>
+        </div>
+
+        <label>Data da entrega real
+          <input id="actualDeliveryDate" type="date" />
+          <small>Quando preenchida, será a base dos contatos de adaptação e renovação.</small>
+        </label>
+
+        <div class="grid two">
+          <label>Tipo de lente
+            <select id="lensType">
+              <option>Visão simples</option>
+              <option>Multifocal</option>
+              <option>Ocupacional</option>
+              <option>Solar grau</option>
+              <option>Outro</option>
+            </select>
+          </label>
+          <label>Marca / tratamento
+            <input id="lensBrand" placeholder="Ex.: ZEISS ClearView Silver" />
+          </label>
+        </div>
+
+        <div class="grid two">
+          <label>Status da OS
+            <select id="orderStatus">
+              <option>Pedido realizado</option>
+              <option>Produção das lentes</option>
+              <option>Montagem</option>
+              <option>Pedido expedido</option>
+              <option>Disponível para retirada</option>
+              <option>Lentes entregues</option>
+              <option>Retorno agendado</option>
+            </select>
+          </label>
+          <label>Valor da venda
+            <input id="saleValue" type="number" min="0" step="0.01" placeholder="0,00" />
+          </label>
+        </div>
+
+        <label>Observações
+          <textarea id="notes" rows="3" placeholder="Ex.: Cliente usa multifocal pela primeira vez."></textarea>
+        </label>
+
+        <button class="btn primary" type="submit">Salvar cliente</button>
+      </form>
+    </section>
+
+    <section class="panel dashboard-panel">
+      <div class="panel-title">
+        <h2>Carteira ativa</h2>
+        <span>Prioridade por data de contato</span>
+      </div>
+
+      <div class="kpis">
+        <div><strong id="kpiTotal">0</strong><span>clientes</span></div>
+        <div><strong id="kpiToday">0</strong><span>ações hoje</span></div>
+        <div><strong id="kpiLate">0</strong><span>atrasados</span></div>
+        <div><strong id="kpiRenewal">0</strong><span>renovação 30d</span></div>
+      </div>
+
+      <div class="filters">
+        <input id="searchInput" placeholder="Buscar cliente, lente ou status..." />
+        <select id="filterStage">
+          <option value="">Todas as etapas</option>
+          <option>D0</option>
+          <option>D7</option>
+          <option>D21</option>
+          <option>3M</option>
+          <option>6M</option>
+          <option>1A</option>
+        </select>
+        <select id="filterStatus">
+          <option value="">Todos os status</option>
+          <option>Pedido realizado</option>
+          <option>Produção das lentes</option>
+          <option>Montagem</option>
+          <option>Pedido expedido</option>
+          <option>Disponível para retirada</option>
+          <option>Lentes entregues</option>
+          <option>Retorno agendado</option>
+        </select>
+      </div>
+
+      <div id="clientList" class="client-list"></div>
+      <p id="statusMessage" class="status-message" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <section class="panel scripts-panel">
+    <div class="panel-title">
+      <h2>Scripts editáveis</h2>
+      <span>Use variáveis: {nome}, {prazo}, {status}, {lente}, {marca}</span>
+    </div>
+    <div id="scriptsEditor" class="scripts-grid"></div>
+  </section>
+
+  <dialog id="clientModal">
+    <div class="modal-head">
+      <div>
+        <p class="eyebrow">Ficha do cliente</p>
+        <h2 id="modalName"></h2>
+      </div>
+      <button id="closeModal" class="icon-btn" aria-label="Fechar ficha">×</button>
+    </div>
+
+    <div id="modalBody"></div>
+  </dialog>
+
+  <footer class="app-footer">
+    Os dados ficam somente neste navegador. Exporte um backup regularmente.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
