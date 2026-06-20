@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -25,7 +26,47 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Compilar e criar rascunho no GitHub Releases
-        run: npm run publish
+      - name: Compilar instalador
+        run: npm run make
+
+      - name: Verificar arquivos gerados
+        shell: pwsh
+        run: |
+          $output = "out/make/squirrel.windows/x64"
+          $required = @(
+            "$output/CRM-Pos-Venda-Setup.exe",
+            "$output/RELEASES"
+          )
+
+          foreach ($file in $required) {
+            if (-not (Test-Path $file)) {
+              throw "Arquivo obrigatório não encontrado: $file"
+            }
+          }
+
+          $package = Get-ChildItem "$output/*.nupkg" | Select-Object -First 1
+          if (-not $package) {
+            throw "Pacote .nupkg não encontrado em $output"
+          }
+
+      - name: Definir versão
+        shell: pwsh
+        run: |
+          $version = node -p "require('./package.json').version"
+          "RELEASE_TAG=v$version" >> $env:GITHUB_ENV
+
+      - name: Criar rascunho no GitHub Releases
+        shell: pwsh
+        run: |
+          gh release view $env:RELEASE_TAG 2>$null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create $env:RELEASE_TAG --draft --title "$env:RELEASE_TAG" --notes "Primeira versão desktop do CRM Pós-venda Multivisão."
+          }
+
+          gh release upload $env:RELEASE_TAG `
+            "out/make/squirrel.windows/x64/CRM-Pos-Venda-Setup.exe" `
+            "out/make/squirrel.windows/x64/RELEASES" `
+            "out/make/squirrel.windows/x64/*.nupkg" `
+            --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

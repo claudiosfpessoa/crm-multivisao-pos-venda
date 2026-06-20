@@ -117,7 +117,7 @@ Para publicar uma atualização:
 
 1. Altere a versão usando `npm version patch`, `npm version minor` ou `npm version major`.
 2. Envie o commit e a tag para o GitHub com `git push origin main --follow-tags`.
-3. O GitHub Actions compilará automaticamente o instalador em um ambiente Windows.
+3. O GitHub Actions compilará automaticamente o instalador em um ambiente Windows, verificará os artefatos e criará um rascunho do Release.
 4. Revise o rascunho criado em **GitHub Releases** e publique-o.
 
 As tags devem seguir versionamento semântico, por exemplo `v1.0.1`. O atualizador só funciona no aplicativo empacotado; ele não é executado durante `npm start`.
