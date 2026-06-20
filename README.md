@@ -53,6 +53,21 @@ Use **Exportar dados** para criar um JSON de backup. A importação substitui os
 
 O projeto usa somente HTML, CSS e JavaScript. Pode ser publicado no GitHub Pages, Cloudflare Pages, Netlify ou serviço equivalente.
 
+### Versão publicada no Netlify
+
+Endereço atual:
+
+https://crm-multivisao-pos-venda.netlify.app/
+
+A publicação inicial foi feita pelo Netlify Drop. Para atualizar manualmente:
+
+1. Acesse o projeto no painel do Netlify.
+2. Abra **Deploys**.
+3. Arraste uma pasta contendo os arquivos atualizados do aplicativo para a área de publicação.
+4. Aguarde a confirmação de que o deploy foi publicado.
+
+Os dados cadastrados não são enviados ao Netlify; eles continuam armazenados localmente em cada computador.
+
 Para testar localmente:
 
 ```bash
