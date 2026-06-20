@@ -571,7 +571,7 @@ function updateConnectionStatus() {
 window.addEventListener("online", updateConnectionStatus);
 window.addEventListener("offline", updateConnectionStatus);
 
-if ("serviceWorker" in navigator) {
+if ("serviceWorker" in navigator && ["http:", "https:"].includes(location.protocol)) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./sw.js").catch(() => {
       $("connectionStatus").textContent = "Não foi possível ativar o modo offline.";

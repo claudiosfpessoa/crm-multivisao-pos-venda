@@ -1,0 +1,32 @@
+{
+  "name": "crm-multivisao-pos-venda",
+  "productName": "CRM Pós-venda Multivisão",
+  "version": "1.0.0",
+  "description": "Aplicativo de acompanhamento pós-venda da Multivisão Ótica.",
+  "main": "electron/main.js",
+  "private": true,
+  "author": "Multivisão Ótica",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/claudiosfpessoa/crm-multivisao-pos-venda.git"
+  },
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "npm run icon:windows && electron-forge make",
+    "publish": "npm run icon:windows && electron-forge publish",
+    "icon:windows": "node scripts/create-windows-icon.mjs"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "1.0.1",
+    "update-electron-app": "3.2.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "7.11.2",
+    "@electron-forge/maker-squirrel": "7.11.2",
+    "@electron-forge/publisher-github": "7.11.2",
+    "electron": "42.4.1",
+    "png-to-ico": "3.0.1"
+  }
+}
