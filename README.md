@@ -1,15 +1,26 @@
 # CRM Pós-venda Multivisão Ótica
 
-Aplicação local para acompanhar clientes durante um ano após a compra dos óculos. Não exige instalação, servidor ou conexão com banco de dados.
+Aplicação instalável para acompanhar clientes durante um ano após a compra dos óculos. Funciona em uma janela própria e continua disponível sem internet após o primeiro acesso.
+
+## Instalação no Windows
+
+O aplicativo deve estar publicado em um endereço HTTPS. No computador da colaboradora:
+
+1. Abra o endereço no Microsoft Edge.
+2. Clique em **Instalar aplicativo** no cabeçalho.
+3. Confirme a instalação.
+4. Marque a opção para criar um atalho na área de trabalho, se o Windows oferecer.
+5. Nas próximas vezes, abra pelo ícone **CRM Pós-venda**.
+
+Também é possível instalar pelo menu `⋯ > Aplicativos > Instalar CRM Pós-venda`.
 
 ## Uso rápido
 
-1. Abra o arquivo `index.html` em um navegador moderno.
-2. Cadastre o cliente e os dados da venda.
-3. Preencha a entrega real assim que os óculos forem entregues.
-4. Consulte a carteira ativa e envie a mensagem da etapa pelo WhatsApp.
-5. Marque cada contato como concluído.
-6. Exporte um backup ao fim de cada dia de uso.
+1. Cadastre o cliente e os dados da venda.
+2. Preencha a entrega real assim que os óculos forem entregues.
+3. Consulte a carteira ativa e envie a mensagem da etapa pelo WhatsApp.
+4. Marque cada contato como concluído.
+5. Exporte um backup ao fim de cada dia de uso.
 
 ## Funcionamento das datas
 
@@ -22,7 +33,7 @@ Aplicação local para acompanhar clientes durante um ano após a compra dos óc
 
 Os clientes e scripts ficam no `localStorage` do navegador. Isso significa que:
 
-- os dados não são sincronizados entre computadores;
+- os dados não são sincronizados entre computadores por enquanto;
 - outro navegador não terá acesso aos mesmos registros;
 - limpar os dados do navegador pode apagar o CRM;
 - o arquivo exportado deve ser guardado em local seguro, pois contém dados de clientes.
@@ -38,12 +49,16 @@ Use **Exportar dados** para criar um JSON de backup. A importação substitui os
 - 6 meses: satisfação e estado das lentes.
 - 1 ano: renovação e exame.
 
-## Desenvolvimento
+## Publicação e desenvolvimento
 
-O projeto usa somente HTML, CSS e JavaScript, sem dependências:
+O projeto usa somente HTML, CSS e JavaScript. Pode ser publicado no GitHub Pages, Cloudflare Pages, Netlify ou serviço equivalente.
+
+Para testar localmente:
 
 ```bash
 python3 -m http.server 8080
 ```
 
 Depois, acesse `http://localhost:8080`.
+
+O service worker mantém os arquivos principais em cache para funcionamento offline.

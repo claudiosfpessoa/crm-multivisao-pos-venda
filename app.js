@@ -26,6 +26,7 @@ const defaultScripts = {
 
 let clients = normalizeClients(load(STORAGE_KEY, []));
 let scripts = { ...defaultScripts, ...load(SCRIPTS_KEY, {}) };
+let installPrompt = null;
 
 const $ = (id) => document.getElementById(id);
 
@@ -539,6 +540,46 @@ $("btnReset").onclick = () => {
   notify("CRM limpo.");
 };
 
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  installPrompt = event;
+  $("btnInstall").hidden = false;
+});
+
+$("btnInstall").onclick = async () => {
+  if (!installPrompt) {
+    alert("No Microsoft Edge, abra o menu ⋯ e escolha Aplicativos > Instalar CRM Pós-venda.");
+    return;
+  }
+  installPrompt.prompt();
+  await installPrompt.userChoice;
+  installPrompt = null;
+  $("btnInstall").hidden = true;
+};
+
+window.addEventListener("appinstalled", () => {
+  $("btnInstall").hidden = true;
+  notify("Aplicativo instalado com sucesso.");
+});
+
+function updateConnectionStatus() {
+  $("connectionStatus").textContent = navigator.onLine
+    ? "Aplicativo pronto para uso offline."
+    : "Sem internet — trabalhando normalmente no modo offline.";
+}
+
+window.addEventListener("online", updateConnectionStatus);
+window.addEventListener("offline", updateConnectionStatus);
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {
+      $("connectionStatus").textContent = "Não foi possível ativar o modo offline.";
+    });
+  });
+}
+
 $("saleDate").value = localToday();
+updateConnectionStatus();
 renderScripts();
 render();

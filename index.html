@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#243b2f" />
+  <meta name="description" content="CRM local de acompanhamento pós-venda da Multivisão Ótica." />
   <title>CRM Pós-venda | Multivisão Ótica</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -14,6 +19,7 @@
       <p class="subtitle">Ciclo de 1 ano até renovação: D0, D7, D21, 3 meses, 6 meses e 1 ano.</p>
     </div>
     <div class="header-actions">
+      <button id="btnInstall" class="btn install" hidden>Instalar aplicativo</button>
       <button id="btnExport" class="btn ghost">Exportar dados</button>
       <label class="btn ghost file-label">
         Importar dados
@@ -156,7 +162,8 @@
   </dialog>
 
   <footer class="app-footer">
-    Os dados ficam somente neste navegador. Exporte um backup regularmente.
+    <span id="connectionStatus">Aplicativo pronto para uso offline.</span>
+    Os dados ficam somente neste computador. Exporte um backup regularmente.
   </footer>
 
   <script src="app.js"></script>
