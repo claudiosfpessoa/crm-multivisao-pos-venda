@@ -1,6 +1,6 @@
 {
   "name": "crm-multivisao-pos-venda",
-  "productName": "CRM Pós-venda Multivisão",
+  "productName": "CRM Pos-venda Multivisao",
   "version": "1.0.0",
   "description": "Aplicativo de acompanhamento pós-venda da Multivisão Ótica.",
   "main": "electron/main.js",

@@ -1,6 +1,7 @@
 module.exports = {
   packagerConfig: {
-    asar: true
+    asar: true,
+    executableName: "CRM-Pos-Venda"
   },
   rebuildConfig: {},
   makers: [
@@ -8,6 +9,7 @@ module.exports = {
       name: "@electron-forge/maker-squirrel",
       config: {
         name: "CRMMultivisaoPosVenda",
+        title: "CRM Pós-venda Multivisão",
         setupExe: "CRM-Pos-Venda-Setup.exe",
         setupIcon: "./icons/app-icon.ico"
       }
