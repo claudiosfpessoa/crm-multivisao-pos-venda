@@ -60,7 +60,7 @@ jobs:
         run: |
           gh release view $env:RELEASE_TAG 2>$null
           if ($LASTEXITCODE -ne 0) {
-            gh release create $env:RELEASE_TAG --draft --title "$env:RELEASE_TAG" --notes "Primeira versão desktop do CRM Pós-venda Multivisão."
+            gh release create $env:RELEASE_TAG --draft --title "$env:RELEASE_TAG" --notes "Nova versão desktop do CRM Pós-venda Multivisão."
           }
 
           gh release upload $env:RELEASE_TAG `

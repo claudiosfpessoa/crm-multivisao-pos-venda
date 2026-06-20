@@ -2,9 +2,8 @@ const path = require("node:path");
 const { app, BrowserWindow, shell } = require("electron");
 const { updateElectronApp, UpdateSourceType } = require("update-electron-app");
 
-if (require("electron-squirrel-startup")) {
-  app.quit();
-}
+const isHandlingSquirrelEvent = require("electron-squirrel-startup");
+const applicationIcon = path.join(__dirname, "..", "icons", "app-icon.ico");
 
 function configureAutomaticUpdates() {
   if (!app.isPackaged) return;
@@ -27,6 +26,7 @@ function createWindow() {
     minHeight: 700,
     backgroundColor: "#f4f6f8",
     title: "CRM Pós-venda Multivisão",
+    icon: applicationIcon,
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
@@ -52,19 +52,21 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(() => {
-  configureAutomaticUpdates();
-  createWindow();
+if (!isHandlingSquirrelEvent) {
+  app.whenReady().then(() => {
+    configureAutomaticUpdates();
+    createWindow();
 
-  app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+    app.on("activate", () => {
+      if (BrowserWindow.getAllWindows().length === 0) {
+        createWindow();
+      }
+    });
+  });
+
+  app.on("window-all-closed", () => {
+    if (process.platform !== "darwin") {
+      app.quit();
     }
   });
-});
-
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
+}

@@ -1,7 +1,8 @@
 module.exports = {
   packagerConfig: {
     asar: true,
-    executableName: "CRM-Pos-Venda"
+    executableName: "CRM-Pos-Venda",
+    ...(process.platform === "win32" ? { icon: "./icons/app-icon.ico" } : {})
   },
   rebuildConfig: {},
   makers: [
